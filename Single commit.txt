@@ -1,0 +1,105 @@
+git add .
+git commit -m "feat: complete Urban Air Quality Assistant with Gemini AI and impact tracker"
+git push -u origin main
+______________________________________________________________________________________
+
+
+##Pre final submission
+# Check total tracked file size (must be well under 10,000 KB / 10 MB)
+git ls-files -z | xargs -0 du -ch | tail -n 1
+
+# Verify only ONE branch exists locally and remotely
+git branch -a
+___________________________________________________________________________________________
+
+#Asking antigrravity to create readme file
+# 🌫️ AeroShield AI — Urban Air Quality & Winter Smog Assistant
+> **PromptWars [Challenge 6]: Urban Air Quality Assistant**
+
+AeroShield AI is a GenAI-powered household and community assistant designed to help urban families navigate severe winter smog episodes. It translates real-time air quality metrics and household context into personalized, low-emission daily routines, DIY indoor air quality (IAQ) hacks, and sustainable lifestyle swaps—while quantifying the **direct health and environmental impact** of every action.
+
+---
+
+## 1. Chosen Vertical & Target Persona
+* **Challenge Vertical:** `[Challenge 6] Urban Air Quality Assistant`
+* **Primary Persona:** Urban families (including children, elderly members, and daily commuters) living in high-AQI metropolitan regions prone to winter thermal inversions (e.g., Delhi-NCR, Kolkata, Lahore, Beijing).
+* **Core Pain Point:** Generic AQI apps only display hazardous numbers without telling families *when* to ventilate, *how* to protect vulnerable members indoors affordably, or *how much* their daily commuting and heating choices reduce personal PM2.5 exposure and community emissions.
+
+---
+
+## 2. Approach & Logical Decision-Making
+The assistant uses a **hybrid deterministic + Generative AI architecture** to ensure reliability, safety, and zero-friction evaluation:
+
+1. **Environmental Context Ingestion:** Fetches live pollutant data (`PM2.5`, `PM10`, `NO2`, `US/EU AQI`) via the Open-Meteo Air Quality API, alongside an interactive **Winter Smog Simulator** slider (AQI `50` to `500+`) for testing extreme inversion scenarios.
+2. **Household Vulnerability Profiling:** Weighs risk multipliers based on user inputs:
+   * *Vulnerable Groups:* Infants/children, elderly, respiratory/asthma conditions.
+   * *Lifestyle & Exposure Vectors:* Commute mode (two-wheeler, car, public transit, WFH), cooking fuel, and home ventilation setup.
+3. **Structured GenAI Reasoning (`gemini-2.5-flash`):** Synthesizes environmental severity + household profile into strict JSON schemas covering three actionable pillars:
+   * **Time-Blocked Daily Routine** (aligned with winter thermal inversion lift windows).
+   * **Low-Cost Indoor Air Quality (IAQ) Hacks** (e.g., DIY Corsi-Rosenthal filtration, wet-mopping, strategic cross-ventilation).
+   * **Sustainable Alternatives** (e.g., transit shifts, induction cooking, staggered errands).
+4. **Offline Smart Fallback Engine:** If no Gemini API key is supplied, a deterministic rule-based engine dynamically generates tailored recommendations so the app works immediately out-of-the-box.
+
+---
+
+## 3. How the Solution Works
+
+```text
+[User Location / AQI Simulator] + [Household & Lifestyle Profile]
+                           │
+                           ▼
+            ┌──────────────────────────────┐
+            │  Context & Risk Engine (JS)  │
+            └──────────────┬───────────────┘
+                           │
+             ┌─────────────┴─────────────┐
+             ▼ (API Key Present)         ▼ (No API Key / Offline)
+  ┌─────────────────────┐     ┌─────────────────────┐
+  │  Gemini 2.5 Flash   │     │ Deterministic Smart │
+  │ (Structured JSON)   │     │   Fallback Engine   │
+  └──────────┬──────────┘     └──────────┬──────────┘
+             └─────────────┬─────────────┘
+                           ▼
+  ┌─────────────────────────────────────────────────┐
+  │ Interactive Action Plan + Direct Impact Meter   │
+  │  • % PM2.5 Inhalation Reduction                 │
+  │  • Daily CO2e / NOx Emissions Saved             │
+  │  • Shareable Community Smog Advisory            │
+  └─────────────────────────────────────────────────┘
+```
+
+### Key Features
+* **Direct Impact Explainer:** Every recommendation displays quantified health/emission benefits (e.g., *"-35% indoor PM2.5 exposure"* or *"-2.1 kg CO2e/day"*).
+* **Interactive Impact Simulator:** Checking off recommended habits dynamically recalculates the household's **Exposure Reduction Score** and **Community Emission Savings**.
+* **WCAG AA Accessibility:** Color-blind-safe AQI severity badges (combining icons, text labels, and high-contrast palettes) with full keyboard navigation.
+
+---
+
+## 4. Assumptions Made
+1. **Winter Thermal Inversion Pattern:** Outdoor PM2.5 concentrations peak between `06:00–10:00` and `19:00–23:00` due to boundary-layer compression, with a safer dispersion window between `13:00–16:00` for brief natural ventilation.
+2. **Impact Estimation Baselines:** Percentage reductions in indoor PM2.5 and CO2e savings are modeled using peer-reviewed environmental engineering averages (e.g., HEPA/Corsi-Rosenthal filtration reducing indoor particulates by ~45–60%; shifting a 15 km solo petrol car commute to metro/public transit saving ~2.4 kg CO2e).
+3. **Zero-Secret Security:** API keys are never stored in the repository; users or evaluators can optionally input a Gemini API key in the UI session or run in instant Demo Mode.
+
+---
+
+## 5. Setup, Security & Testing
+
+### Local Installation
+```bash
+git clone https://github.com<YOUR-USERNAME>/urban-air-quality-assistant.git
+cd urban-air-quality-assistant
+npm install
+npm run dev
+```
+
+### Environment Variables (Optional)
+Copy `.env.example` to `.env` and add your key (or enter it directly in the app's UI settings):
+```env
+VITE_GEMINI_API_KEY=your_api_key_here
+```
+
+### Running Automated Tests
+```bash
+npm test
+```
+*Includes unit tests validating AQI risk classification, impact score calculations, input sanitization, and offline fallback logic.*

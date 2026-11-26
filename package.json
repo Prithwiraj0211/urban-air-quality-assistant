@@ -1,0 +1,29 @@
+{
+  "name": "urban-air-quality-assistant",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AeroShield AI — Urban Air Quality & Winter Smog Assistant for PromptWars Challenge 6",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "lucide-react": "^0.475.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.9",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "jsdom": "^26.0.0",
+    "tailwindcss": "^4.0.9",
+    "vitest": "^3.0.7"
+  }
+}
